@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Acceso privado — Todocrepas</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#fff9f2">
+<link rel="icon" href="img/icono.jpg">
+<style>
+:root{--bg:#fff9f2;--panel:#ffffff;--panel2:#fdf3e3;--txt:#3d2410;--mut:#7a5c40;--acc:#e07b2a;--acc2:#b4501b;--line:rgba(180,80,27,.22)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;padding:24px 16px 60px}
+.wrap{max-width:760px;margin:0 auto}
+h1{font-size:1.5rem;margin-bottom:4px}
+.sub{color:var(--mut);margin-bottom:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:18px}
+.card h2{font-size:1.1rem;margin-bottom:12px;color:var(--acc2)}
+label{display:block;font-weight:700;font-size:.9rem;margin:12px 0 5px}
+input,textarea,select{width:100%;background:#fff;border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 12px;font:inherit}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.row,.row2{grid-template-columns:1fr}}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:800;border:1px solid transparent;cursor:pointer;font:inherit}
+.btn-acc{background:var(--acc);color:#fff}
+.btn-ghost{background:transparent;color:var(--txt);border-color:var(--line)}
+.btn-del{background:transparent;color:#c0392b;border:1px solid rgba(192,57,43,.4);padding:8px 14px;border-radius:999px;font-weight:700;cursor:pointer}
+.item{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:var(--panel2)}
+.item .cab{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.item .cab b{color:var(--acc2)}
+.ok{background:#e7f6e9;border:1px solid #4c8a3f;color:#28511f;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:none}
+a{color:var(--acc2)}
+#login{max-width:420px;margin:10vh auto 0;text-align:center}
+#login img{height:90px;margin:0 auto 14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="login">
+    <img src="img/logo-conejo.png" alt="Le Lapin Cheff">
+    <h1>Acceso privado</h1>
+    <p class="sub">Panel del dueño de Todocrepas.<br>Escribe tu clave para entrar.</p>
+    <div class="card">
+      <label for="clave">Clave de acceso</label>
+      <input type="password" id="clave" autocomplete="current-password" placeholder="Tu clave única">
+      <button class="btn btn-acc" id="btnEntrar" style="width:100%;justify-content:center;margin-top:14px">Entrar al panel</button>
+      <p id="errLogin" style="color:#c0392b;margin-top:10px;display:none">Clave incorrecta, intenta de nuevo.</p>
+    </div>
+    <p style="margin-top:14px"><a href="index.html">← Volver a la página</a></p>
+  </div>
+
+  <div id="panel" style="display:none">
+    <h1>Panel de Todocrepas</h1>
+    <p class="sub">Edita tus productos, precios y el área de Recetas (puedes cargar recetas en PDF o video con su enlace). Al guardar, los cambios se ven en tu página y en tu app. <a href="index.html">Ver la página →</a></p>
+    <div class="ok" id="okMsg">✅ Cambios guardados. Ya se ven en tu página.</div>
+
+    <div class="card">
+      <h2>Datos generales</h2>
+      <label for="fNegocio">Nombre del negocio</label>
+      <input id="fNegocio">
+      <label for="fWhatsapp">WhatsApp (con código de país, solo números)</label>
+      <input id="fWhatsapp" inputmode="numeric">
+    </div>
+
+    <div class="card">
+      <h2>Productos y precios</h2>
+      <p style="color:var(--mut);font-size:.9rem;margin-bottom:10px">Deja un precio en 0 o vacío para que se vea como «Cotizar».</p>
+      <div id="listaProductos"></div>
+      <button class="btn btn-ghost" id="btnAddProd">+ Agregar producto</button>
+    </div>
+
+    <div class="card">
+      <h2>Recetas (PDF o video)</h2>
+      <p style="color:var(--mut);font-size:.9rem;margin-bottom:10px">Para una receta nueva: escribe el título, elige PDF o Video y pega el enlace del archivo (por ejemplo de Google Drive o YouTube).</p>
+      <div id="listaRecetas"></div>
+      <button class="btn btn-ghost" id="btnAddRec">+ Agregar receta</button>
+    </div>
+
+    <button class="btn btn-acc" id="btnGuardar" style="width:100%;justify-content:center">Guardar cambios</button>
+    <button class="btn btn-ghost" id="btnReset" style="width:100%;justify-content:center;margin-top:10px">Restablecer la página original</button>
+    <p style="margin-top:16px;text-align:center"><a href="index.html">← Volver a la página</a></p>
+  </div>
+</div>
+
+<script>
+const CLAVE = 'Crepas2026';
+const KEY = 'todocrepas_datos';
+const API = 'https://todocrepas-api.berroteranc64.workers.dev';
+const IMAGENES = ['img/portada.jpg','img/linea.jpg','img/prod-regular-bolsa.jpg','img/prod-regular-cajita.jpg','img/prod-ligera-bolsa.jpg','img/prod-ligera-cajita.jpg','img/prod-avena-bolsa.jpg','img/prod-avena-cajita.jpg','img/tabla-avena.jpg'];
+const FICHAS = ['', 'docs/ficha-regular-bolsa.pdf','docs/ficha-regular-cajita.pdf','docs/ficha-ligera-bolsa.pdf','docs/ficha-ligera-cajita.pdf','docs/ficha-avena.pdf'];
+const DEFAULTS = {
+  negocio: 'Todocrepas', whatsapp: '522292883706',
+  beneficios: ['Solo agrega agua y listo','Siempre la misma calidad','Sin mermas en la preparación','Prepara solo lo que vas a usar','La mezcla dura hasta 5 días en refrigeración','Caducidad de 1 año','Control total: sabes cuántas crepas salen de un kilo','Sin robo hormiga','Precios de medio mayoreo y mayoreo'],
+  productos: [
+    { n: 'Harina para Crepas Regular', pres: 'Bolsa con 1 kg', d: 'Delicioso sabor y textura, crepas tradicionales. Solo agrega agua.', img: 'img/prod-regular-bolsa.jpg', ficha: 'docs/ficha-regular-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Regular', pres: 'Cajita con 250 g', d: 'La presentación práctica para casa. Rinde hasta 14 crepas, solo agrega agua.', img: 'img/prod-regular-cajita.jpg', ficha: 'docs/ficha-regular-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Ligera', pres: 'Bolsa con 1 kg', d: 'Crepas ligeras con cero azúcares añadidos, sin sacrificar sabor ni textura.', img: 'img/prod-ligera-bolsa.jpg', ficha: 'docs/ficha-ligera-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Ligera', pres: 'Cajita con 250 g', d: 'Ligera y práctica: gratis un esparcidor, solo agrega agua. Contenido 250 g.', img: 'img/prod-ligera-cajita.jpg', ficha: 'docs/ficha-ligera-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas 100% Avena', pres: 'Bolsa con 1 kg', d: 'Avena integral 100%, sin gluten y cero azúcares añadidos. Nutrición sana con el mismo sabor.', img: 'img/prod-avena-bolsa.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas 100% Avena', pres: 'Cajita con 250 g', d: 'Para quien cuida su salud o sus niveles de azúcar, sin sacrificar la textura.', img: 'img/prod-avena-cajita.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Equipamiento Easy Cheff', pres: 'Creperas y módulos', d: 'Creperas a gas y eléctricas con y sin teflón, módulos de crepas, carritos móviles y accesorios.', img: 'img/linea.jpg', ficha: '', precios: { pub: null, p10: null, p25: null } }
+  ],
+  recetas: [
+    { t: 'Cómo preparar tus crepas con Le Lapin Cheff', tipo: 'video', url: 'videos/video-1.mp4' },
+    { t: 'Ficha técnica — Harina para crepas de avena integral 100%', tipo: 'pdf', url: 'docs/ficha-avena.pdf' }
+  ]
+};
+let datos = JSON.parse(JSON.stringify(DEFAULTS));
+try { const g = localStorage.getItem(KEY); if (g) datos = JSON.parse(g); } catch (e) {}
+const esc = s => String(s ?? '').replace(/"/g, '&quot;');
+function selImg(v) { return `<select class="f-img">${IMAGENES.map(u => `<option value="${u}" ${u === v ? 'selected' : ''}>${u.replace('img/', '')}</option>`).join('')}</select>`; }
+function selFicha(v) { return `<select class="f-ficha">${FICHAS.map(u => `<option value="${u}" ${u === v ? 'selected' : ''}>${u ? u.replace('docs/', '') : 'Sin ficha'}</option>`).join('')}</select>`; }
+function pintar() {
+  document.getElementById('fNegocio').value = datos.negocio || '';
+  document.getElementById('fWhatsapp').value = datos.whatsapp || '';
+  const lp = document.getElementById('listaProductos'); lp.innerHTML = '';
+  datos.productos.forEach((p, i) => {
+    const pr = p.precios || {};
+    const div = document.createElement('div'); div.className = 'item';
+    div.innerHTML = `<div class="cab"><b>Producto ${i + 1}</b><button class="btn-del" data-del-prod="${i}">Quitar</button></div>
+      <div class="row2"><div><label>Nombre</label><input class="f-n" value="${esc(p.n)}"></div>
+      <div><label>Presentación</label><input class="f-pres" value="${esc(p.pres)}"></div></div>
+      <label>Descripción</label><textarea class="f-d" rows="2">${esc(p.d)}</textarea>
+      <div class="row"><div><label>Precio público ($)</label><input class="f-pub" type="number" min="0" value="${pr.pub ?? ''}"></div>
+      <div><label>Desde 10 kg ($)</label><input class="f-p10" type="number" min="0" value="${pr.p10 ?? ''}"></div>
+      <div><label>Desde 25 kg ($)</label><input class="f-p25" type="number" min="0" value="${pr.p25 ?? ''}"></div></div>
+      <div class="row2"><div><label>Foto</label>${selImg(p.img)}</div>
+      <div><label>Ficha técnica</label>${selFicha(p.ficha)}</div></div>`;
+    lp.appendChild(div);
+  });
+  const lr = document.getElementById('listaRecetas'); lr.innerHTML = '';
+  datos.recetas.forEach((r, i) => {
+    const div = document.createElement('div'); div.className = 'item';
+    div.innerHTML = `<div class="cab"><b>Receta ${i + 1}</b><button class="btn-del" data-del-rec="${i}">Quitar</button></div>
+      <label>Título</label><input class="f-t" value="${esc(r.t)}">
+      <div class="row2"><div><label>Tipo</label><select class="f-tipo">
+        <option value="pdf" ${r.tipo === 'pdf' ? 'selected' : ''}>PDF</option>
+        <option value="video" ${r.tipo === 'video' ? 'selected' : ''}>Video (archivo o enlace)</option>
+        <option value="youtube" ${r.tipo === 'youtube' ? 'selected' : ''}>YouTube</option></select></div>
+      <div><label>Enlace del archivo</label><input class="f-url" value="${esc(r.url)}" placeholder="https://..."></div></div>`;
+    lr.appendChild(div);
+  });
+  document.querySelectorAll('[data-del-prod]').forEach(b => b.addEventListener('click', () => { recoger(); datos.productos.splice(+b.dataset.delProd, 1); pintar(); }));
+  document.querySelectorAll('[data-del-rec]').forEach(b => b.addEventListener('click', () => { recoger(); datos.recetas.splice(+b.dataset.delRec, 1); pintar(); }));
+}
+function recoger() {
+  datos.negocio = document.getElementById('fNegocio').value.trim();
+  datos.whatsapp = document.getElementById('fWhatsapp').value.replace(/\D/g, '');
+  const num = v => { const n = Number(v); return n > 0 ? n : null; };
+  datos.productos = [...document.querySelectorAll('#listaProductos .item')].map(it => ({
+    n: it.querySelector('.f-n').value.trim(), pres: it.querySelector('.f-pres').value.trim(),
+    d: it.querySelector('.f-d').value.trim(), img: it.querySelector('.f-img').value, ficha: it.querySelector('.f-ficha').value,
+    precios: { pub: num(it.querySelector('.f-pub').value), p10: num(it.querySelector('.f-p10').value), p25: num(it.querySelector('.f-p25').value) }
+  })).filter(p => p.n);
+  datos.recetas = [...document.querySelectorAll('#listaRecetas .item')].map(it => ({
+    t: it.querySelector('.f-t').value.trim(), tipo: it.querySelector('.f-tipo').value, url: it.querySelector('.f-url').value.trim()
+  })).filter(r => r.t && r.url);
+}
+async function guardar() {
+  recoger();
+  localStorage.setItem(KEY, JSON.stringify(datos));
+  try { await fetch(API + '/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Clave': CLAVE }, body: JSON.stringify(datos) }); } catch (e) {}
+  const ok = document.getElementById('okMsg'); ok.style.display = 'block';
+  ok.scrollIntoView({ behavior: 'smooth' });
+}
+document.getElementById('btnGuardar').addEventListener('click', guardar);
+document.getElementById('btnAddProd').addEventListener('click', () => { recoger(); datos.productos.push({ n: 'Nuevo producto', pres: '', d: '', img: IMAGENES[0], ficha: '', precios: { pub: null, p10: null, p25: null } }); pintar(); });
+document.getElementById('btnAddRec').addEventListener('click', () => { recoger(); datos.recetas.push({ t: 'Nueva receta', tipo: 'pdf', url: '' }); pintar(); });
+document.getElementById('btnReset').addEventListener('click', () => { if (confirm('¿Restablecer la página original?')) { localStorage.removeItem(KEY); datos = JSON.parse(JSON.stringify(DEFAULTS)); pintar(); } });
+function entrar() {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('panel').style.display = 'block';
+  pintar();
+}
+document.getElementById('btnEntrar').addEventListener('click', () => {
+  if (document.getElementById('clave').value === CLAVE) { sessionStorage.setItem('todocrepas_admin', '1'); entrar(); }
+  else document.getElementById('errLogin').style.display = 'block';
+});
+document.getElementById('clave').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('btnEntrar').click(); });
+if (sessionStorage.getItem('todocrepas_admin') === '1') entrar();
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(() => {}); }
+</script>
+</body>
+</html>
