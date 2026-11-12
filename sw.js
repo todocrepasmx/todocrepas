@@ -1,4 +1,4 @@
-const CACHE = 'todocrepas-v1';
+const CACHE = 'todocrepas-v2';
 const ASSETS = [
   './',
   './index.html',
