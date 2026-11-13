@@ -1,4 +1,4 @@
-const CACHE = 'todocrepas-v2';
+const CACHE = 'todocrepas-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -13,6 +13,8 @@ const ASSETS = [
   './img/prod-avena-bolsa.jpg',
   './img/prod-avena-cajita.jpg',
   './img/tabla-avena.jpg',
+  './img/escuelas.jpg',
+  './img/crepa-servida.jpg',
   './img/firma.jpg',
   './img/icono.jpg',
   './img/logo-conejo.png'

@@ -121,6 +121,34 @@ footer .privado{color:var(--mut);opacity:.65;font-size:.8rem;text-decoration:und
 .rv.R{transform:translateX(84px)}
 .rv.in{opacity:1;transform:none}
 @media(max-width:760px){.rv.L:not(.in){transform:translateX(-40px)}.rv.R:not(.in){transform:translateX(40px)}}
+.redes{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.red{display:inline-flex;padding:9px 16px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-weight:800;font-size:.9rem}
+.red:hover{border-color:var(--acc);color:var(--acc2)}
+.tabla-wrap{overflow-x:auto;margin-top:22px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+table.tbl{border-collapse:collapse;width:100%;min-width:660px;font-size:.9rem}
+.tbl th,.tbl td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.tbl thead th{background:var(--panel2);color:var(--acc2)}
+.tbl tbody th{font-weight:700;background:var(--panel);white-space:nowrap}
+.sol{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+@media(max-width:820px){.sol{grid-template-columns:1fr}}
+.solcard{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}
+.solcard img{width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-bottom:14px}
+.solcard h3{color:var(--acc2);margin-bottom:8px}
+.solcard p,.solcard li{color:var(--mut);font-size:.95rem}
+.solcard ul{margin-left:18px}
+.dists{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px}
+.dist{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;font-weight:800}
+.dist img{max-height:56px;margin:0 auto 8px;object-fit:contain}
+.mapa{margin-top:22px;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.mapa iframe{width:100%;height:320px;border:0;display:block}
+.prep{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}
+@media(max-width:720px){.prep{grid-template-columns:1fr}}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.pcard h3{color:var(--acc2);font-size:1rem;margin-bottom:6px}
+.pcard p,.pcard li{color:var(--mut);font-size:.93rem}
+.pcard ul{margin-left:18px}
+.prep-head{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.prep-head img{width:210px;border-radius:14px;border:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -130,7 +158,7 @@ footer .privado{color:var(--mut);opacity:.65;font-size:.8rem;text-decoration:und
     <img class="logo" src="img/logo-conejo.png" alt="Le Lapin Cheff">
     <div class="brand">Todocrepas<small>Le Lapin Cheff · Harinas premix</small></div>
     <nav>
-      <a href="#tienda">Tienda</a><a href="#segmentos">¿Para quién?</a><a href="#nosotros">Nosotros</a><a href="#recetas">Recetas</a><a href="#contacto">Contacto</a>
+      <a href="#tienda">Tienda</a><a href="#avena">Avena</a><a href="#segmentos">¿Para quién?</a><a href="#distribuidores">Distribuidores</a><a href="#nosotros">Nosotros</a><a href="#recetas">Recetas</a><a href="#contacto">Contacto</a>
     </nav>
   </div>
 </header>
@@ -166,7 +194,82 @@ footer .privado{color:var(--mut);opacity:.65;font-size:.8rem;text-decoration:und
     <h2 class="tit rv L">Nuestros productos</h2>
     <p class="sub rv L">Tres niveles de precio: público, desde 10 kilos y desde 25 kilos. ¿Necesitas más cantidad? Contáctanos y te hacemos precio. Toca un producto para ver su ficha técnica.</p>
     <div class="prods" id="prods"></div>
+    <div class="cta rv L" style="margin-top:22px">
+      <a class="btn btn-acc" href="https://todocrepas.mitiendanube.com" target="_blank" rel="noopener">🛒 Tienda en línea</a>
+      <span style="color:var(--mut);font-size:.92rem">También puedes comprar en nuestra tienda en línea de Tienda Nube.</span>
+    </div>
     <div class="nota rv L">Aceptamos tarjeta de crédito a través de Mercado Pago, compras por Mercado Libre y transferencia bancaria. Tu pedido lo confirmamos por WhatsApp.</div>
+  </div>
+</section>
+
+<section id="avena" style="padding-top:6px">
+  <div class="wrap">
+    <div class="kick rv L">Crepas saludables</div>
+    <h2 class="tit rv L">Harina para crepas 100% avena integral</h2>
+    <p class="sub rv L">Imagina hacer crepas 100% saludables. Con nuestra harina de avena integral tienes: cero azúcares añadidos, avena 100% y facilidad de uso — solo agrega agua y listo.</p>
+    <div class="tabla-wrap rv L">
+      <table class="tbl">
+        <thead><tr><th>Característica</th><th>Harina de Crepas Tradicional (Trigo + Azúcar)</th><th>Harina de Crepas Saludable (Avena Integral + Sucralosa)</th></tr></thead>
+        <tbody>
+          <tr><th>Ingredientes base</th><td>Harina de trigo refinada y azúcar común (sacarosa).</td><td>Harina de avena entera y sucralosa (edulcorante sin calorías).</td></tr>
+          <tr><th>Textura y sabor</th><td>Muy elástica, fina y suave. Sabor dulce tradicional y dorado clásico.</td><td>Más densa y rústica. Sabor suave a cereal, textura ligeramente más pesada.</td></tr>
+          <tr><th>Índice Glucémico (IG)</th><td>Alto (~85-100). Eleva rápidamente los niveles de glucosa en la sangre.</td><td>Bajo a Moderado (~55). Liberación de energía lenta y sostenida.</td></tr>
+          <tr><th>Nutriente principal</th><td>Carbohidratos simples y refinados.</td><td>Carbohidratos complejos y fibra.</td></tr>
+          <tr><th>Aporte de fibra</th><td>Muy bajo (&lt;2 g por 100 g); la refinación elimina la mayor parte de la fibra.</td><td>Alto (~10 g por 100 g). Rica en betaglucanos: promueve la saciedad y la salud digestiva.</td></tr>
+          <tr><th>Aporte proteico</th><td>Bajo (~10 g por 100 g, principalmente gluten).</td><td>Moderado-Alto (~13-15 g por 100 g).</td></tr>
+          <tr><th>Calorías totales</th><td>Más elevadas debido al azúcar y los carbohidratos simples.</td><td>Reducidas, gracias al uso de un edulcorante no calórico.</td></tr>
+          <tr><th>Manejo en sartén</th><td>Muy fácil de esparcir; no se rompe con facilidad al voltear.</td><td>Muy fácil de esparcir; no se rompe con facilidad al voltear.</td></tr>
+          <tr><th>Impacto en niños</th><td>Riesgo de hiperactividad temporal y caries.</td><td>Excelente para energía escolar estable.</td></tr>
+          <tr><th>Impacto en diabéticos</th><td>No recomendada. Eleva bruscamente la glucemia.</td><td>Altamente recomendada. Controla la respuesta insulínica.</td></tr>
+          <tr><th>Uso en deportistas</th><td>Ideal solo inmediatamente antes o después de entrenar.</td><td>Ideal como comida pre-entreno (2-3 horas antes).</td></tr>
+          <tr><th>Público objetivo</th><td>Amantes de la repostería clásica o quienes buscan la textura perfecta de una crepa francesa.</td><td>Personas que cuidan su peso, deportistas, diabéticos o quienes buscan mayor saciedad.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="nota rv L">La avena evita picos de glucosa en sangre, aporta energía sostenida y saciedad duradera, y apoya mejor la conservación de masa muscular; la sucralosa no aporta calorías ni eleva la glucosa. <a href="img/tabla-avena.jpg" target="_blank" rel="noopener" style="color:var(--acc2);font-weight:800">Ver la tabla comparativa original completa →</a></div>
+  </div>
+</section>
+
+<section id="preparacion" style="padding-top:6px">
+  <div class="wrap">
+    <div class="kick rv L">Cómo se prepara</div>
+    <h2 class="tit rv L">Datos de nuestras fichas técnicas</h2>
+    <div class="prep-head rv L">
+      <p class="sub">Todo lo que dicen las fichas de Le Lapin Cheff, sin tener que abrir el PDF: cantidades, rendimientos, vida útil e ingredientes.</p>
+      <img src="img/crepa-servida.jpg" alt="Crepa Le Lapin Cheff servida" loading="lazy">
+    </div>
+    <div class="prep">
+      <div class="pcard rv L">
+        <h3>Forma de uso</h3>
+        <ul>
+          <li><b>Bolsa de 1 kg:</b> vacía el contenido en un contenedor y agrega 1,750 ml de agua filtrada a temperatura ambiente.</li>
+          <li><b>Cajita de 250 g:</b> agrega 500 ml de agua filtrada a temperatura ambiente.</li>
+          <li><b>Proporción:</b> 1 taza de harina (125 g) por 1 taza de agua (250 ml).</li>
+          <li>Mezcla con batidora o batidor de globo hasta que desaparezcan los grumos y refrigera preferentemente 1 hora: queda lista para su uso.</li>
+        </ul>
+      </div>
+      <div class="pcard rv R">
+        <h3>Rendimiento</h3>
+        <ul>
+          <li><b>Bolsa de 1 kg:</b> de 16 a 20 crepas de 40 cm.</li>
+          <li><b>Cajita de 250 g:</b> de 16 a 17 crepas de 22 cm.</li>
+        </ul>
+        <h3 style="margin-top:14px">Tiempo de vida</h3>
+        <ul>
+          <li>En anaquel, sin abrir el empaque: hasta 1 año.</li>
+          <li>Una vez hidratada la mezcla: hasta 5 días en refrigerador.</li>
+        </ul>
+      </div>
+      <div class="pcard rv L">
+        <h3>Esparcidor gratis</h3>
+        <p>Las cajitas de 250 g incluyen gratis un esparcidor de 10 cm para preparar tus crepas.</p>
+      </div>
+      <div class="pcard rv R">
+        <h3>Ingredientes</h3>
+        <p><b>Regular y Ligera:</b> Harina de trigo, Fibra, leche en polvo, suero de leche, grasa vegetal, huevo deshidratado en polvo, goma guar, Azucar, saborizantes naturales y conservadores.</p>
+        <p style="margin-top:8px"><b>100% Avena:</b> Harina de avena, Fibra, leche en polvo, suero de leche, grasa vegetal, huevo deshidratado en polvo, goma guar, .005% Sucralosa, saborizantes naturales y conservadores.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -176,10 +279,61 @@ footer .privado{color:var(--mut);opacity:.65;font-size:.8rem;text-decoration:und
     <h2 class="tit rv L">¿Para quién es Le Lapin Cheff?</h2>
     <div class="segs">
       <div class="seg rv L"><div class="em">🏠</div><b>Amas de casa</b><p>Sin pelearte con mil recetas: solo agrega agua y listo.</p></div>
-      <div class="seg rv R"><div class="em">🏫</div><b>Escuelas</b><p>Cooperativas y cafeterías escolares con costo controlado.</p></div>
+      <div class="seg rv R"><div class="em">🏫</div><b>Escuelas</b><p>Crepera de 30 cm gratis con contrato de adhesión, suministro mensual de kilos, accesorios y capacitación de tu personal.</p></div>
       <div class="seg rv L"><div class="em">☕</div><b>Cafeterías y restaurantes</b><p>Calidad constante, sin mermas y sin robo hormiga.</p></div>
-      <div class="seg rv R"><div class="em">🚀</div><b>Emprendedores</b><p>Arranca tu crepería con materia prima y equipamiento.</p></div>
-      <div class="seg rv L"><div class="em">🚚</div><b>Distribuidores</b><p>Precios de medio mayoreo y mayoreo en todo el país.</p></div>
+      <div class="seg rv R"><div class="em">🚀</div><b>Emprendedores</b><p>Creperas, manuales de operación, capacitación administrativa, costeo, harina y lista de proveedores.</p></div>
+      <div class="seg rv L"><div class="em">🚚</div><b>Distribuidores</b><p>Precios de medio mayoreo y mayoreo en todo el país. ¿Quieres ser distribuidor? Llámanos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="soluciones" style="padding-top:6px">
+  <div class="wrap">
+    <div class="kick rv L">Programas</div>
+    <h2 class="tit rv L">Escuelas y emprendedores</h2>
+    <div class="sol">
+      <div class="solcard rv L">
+        <img src="img/escuelas.jpg" alt="Preparando crepas Le Lapin Cheff" loading="lazy">
+        <h3>🏫 Escuelas y universidades</h3>
+        <p>Para escuelas y universidades tenemos dos opciones: <b>Harina para Crepas Ligera</b>, cero azúcares añadidos, y <b>Harina para Crepas 100% Avena Integral</b>, cero azúcares añadidos.</p>
+        <p style="margin-top:8px">Si no tienes crepera, te proporcionamos una de 30 cm para empezar el negocio:</p>
+        <ul style="margin-top:6px">
+          <li>Firmamos un contrato de adhesión.</li>
+          <li>Determinamos cuántos kilos te surtimos al mes.</li>
+          <li>Te proporcionamos <b>sin costo</b> una crepera de 30 cm y los accesorios para usarla.</li>
+          <li>Capacitamos a tu personal para la elaboración de crepas.</li>
+        </ul>
+      </div>
+      <div class="solcard rv R">
+        <h3>🚀 Emprendedores</h3>
+        <p>Si eres emprendedor y te gustaría un negocio de crepas, nosotros tenemos todo lo necesario para que inicies tu negocio:</p>
+        <ul style="margin-top:6px">
+          <li>Creperas</li>
+          <li>Manuales de operación</li>
+          <li>Capacitación administrativa</li>
+          <li>Costeo</li>
+          <li>Harina</li>
+          <li>Lista de proveedores para que compres tus insumos</li>
+        </ul>
+        <p style="margin-top:8px">No lo dudes más: acércate a nosotros y permite que te apoyemos en tu emprendimiento.</p>
+        <div class="cta" style="margin-top:14px">
+          <a class="btn btn-wa" href="https://wa.me/522292883706?text=Hola%2C%20soy%20emprendedor%20y%20quiero%20informaci%C3%B3n%20para%20iniciar%20mi%20negocio%20de%20crepas" target="_blank" rel="noopener">Quiero emprender</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="distribuidores" style="padding-top:6px">
+  <div class="wrap">
+    <div class="kick rv L">Distribuidores</div>
+    <h2 class="tit rv L">Nuestros distribuidores</h2>
+    <p class="sub rv L">Contamos con distribuidores en distintas ciudades del país, con precios de medio mayoreo y mayoreo.</p>
+    <div class="dists" id="dists"></div>
+    <div class="nota rv L" style="text-align:center">
+      <b>¿Quieres ser distribuidor? Llámanos</b><br>
+      <span>📞 <a href="tel:+522292883706" style="color:var(--acc2);font-weight:800">229 288 3706</a> · 📞 <a href="tel:+523334891947" style="color:var(--acc2);font-weight:800">333 489 1947</a></span><br>
+      <a class="btn btn-wa" style="margin-top:12px" href="https://wa.me/522292883706?text=Hola%2C%20quiero%20ser%20distribuidor%20de%20Le%20Lapin%20Cheff" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
     </div>
   </div>
 </section>
@@ -199,7 +353,10 @@ footer .privado{color:var(--mut);opacity:.65;font-size:.8rem;text-decoration:und
           <li>Harina premix para waffles y waffles integrales sin azúcar</li>
           <li>Harina premix para crepas de avena 100% sin azúcar</li>
           <li>Waffles congelados preempacados</li>
+          <li>Bases para café premix</li>
         </ul>
+        <h3 style="margin-top:16px">Personal</h3>
+        <p>Contamos con personal administrativo, ingeniería, técnicos y labores generales.</p>
         <h3 style="margin-top:16px">Equipamiento</h3>
         <p>Creperas a gas y eléctricas con y sin teflón, módulos de crepas, carritos móviles para crepas y accesorios.</p>
       </div>
@@ -231,7 +388,7 @@ footer .privado{color:var(--mut);opacity:.65;font-size:.8rem;text-decoration:und
     <h2 class="tit rv L">Recetas Le Lapin Cheff</h2>
     <p class="sub rv L">Recetas en PDF y video para que le saques todo el provecho a tus harinas. Esta área se actualiza con nuevas recetas.</p>
     <div class="recs" id="recs"></div>
-    <div class="nota rv L">¿Quieres la tabla comparativa de trigo y avena? <a href="img/tabla-avena.jpg" target="_blank" rel="noopener" style="color:var(--acc2);font-weight:800">Ver tabla comparativa →</a></div>
+    <div class="nota rv L">¿Quieres comparar la harina de trigo con la de avena? La tabla comparativa completa está en la sección de avena: <a href="#avena" style="color:var(--acc2);font-weight:800">Ver tabla comparativa trigo / avena →</a></div>
   </div>
 </section>
 
@@ -249,11 +406,29 @@ footer .privado{color:var(--mut);opacity:.65;font-size:.8rem;text-decoration:und
       <a class="btn btn-wa rv L" id="ctaWa2" href="#" target="_blank" rel="noopener">WhatsApp</a>
       <a class="btn btn-acc rv R" href="#tienda">Ir a la tienda</a>
     </div>
+    <div class="mapa rv L">
+      <iframe title="Mapa: Todocrepas, Turquesa 8, Torre Ziram, Joyas de Mocambo, Boca del Río, Veracruz" src="https://maps.google.com/maps?q=Turquesa%208%2C%20Torre%20Ziram%2C%20Joyas%20de%20Mocambo%2C%20Boca%20del%20R%C3%ADo%2C%20Veracruz&amp;z=15&amp;output=embed" loading="lazy"></iframe>
+    </div>
+    <p class="sub rv L" style="margin:18px auto 0">Síguenos en nuestras redes:</p>
+    <div class="redes rv L">
+      <a class="red" href="https://www.facebook.com/crepas.elconejo" target="_blank" rel="noopener">Facebook</a>
+      <a class="red" href="https://www.instagram.com/lelapincheff" target="_blank" rel="noopener">Instagram</a>
+      <a class="red" href="https://www.tiktok.com/@le.lapin.cheff" target="_blank" rel="noopener">TikTok</a>
+      <a class="red" href="https://www.youtube.com/@LeLapinCheff" target="_blank" rel="noopener">YouTube</a>
+    </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap"><img src="img/firma.jpg" alt="Todocrepas" style="max-width:340px;margin:0 auto 14px"><span>Todocrepas — Le Lapin Cheff. Harinas premix para crepas y waffles.<br>Turquesa 8, Torre Ziram, Joyas de Mocambo, Boca del Río, Veracruz, C.P. 94298</span><br><br><a class="privado" href="acceso-privado-todocrepas.html">Acceso privado</a></div>
+  <div class="wrap"><img src="img/firma.jpg" alt="Todocrepas" style="max-width:340px;margin:0 auto 14px"><span>Todocrepas — Le Lapin Cheff. Harinas premix para crepas y waffles.<br>Turquesa 8, Torre Ziram, Joyas de Mocambo, Boca del Río, Veracruz, C.P. 94298</span>
+  <div class="redes">
+    <a class="red" href="https://www.facebook.com/crepas.elconejo" target="_blank" rel="noopener">Facebook</a>
+    <a class="red" href="https://www.instagram.com/lelapincheff" target="_blank" rel="noopener">Instagram</a>
+    <a class="red" href="https://www.tiktok.com/@le.lapin.cheff" target="_blank" rel="noopener">TikTok</a>
+    <a class="red" href="https://www.youtube.com/@LeLapinCheff" target="_blank" rel="noopener">YouTube</a>
+    <a class="red" href="https://todocrepas.mitiendanube.com" target="_blank" rel="noopener">🛒 Tienda en línea</a>
+  </div>
+<br><a class="privado" href="acceso-privado-todocrepas.html">Acceso privado</a></div>
 </footer>
 
 <a class="wafloat" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -270,17 +445,26 @@ const DATOS_DEFAULT = {
     'Control total: sabes cuántas crepas salen de un kilo', 'Sin robo hormiga', 'Precios de medio mayoreo y mayoreo'
   ],
   productos: [
-    { n: 'Harina para Crepas Regular', pres: 'Bolsa con 1 kg', d: 'Delicioso sabor y textura, crepas tradicionales. Solo agrega agua.', img: 'img/prod-regular-bolsa.jpg', ficha: 'docs/ficha-regular-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas Regular', pres: 'Cajita con 250 g', d: 'La presentación práctica para casa. Rinde hasta 14 crepas, solo agrega agua.', img: 'img/prod-regular-cajita.jpg', ficha: 'docs/ficha-regular-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas Ligera', pres: 'Bolsa con 1 kg', d: 'Crepas ligeras con cero azúcares añadidos, sin sacrificar sabor ni textura.', img: 'img/prod-ligera-bolsa.jpg', ficha: 'docs/ficha-ligera-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas Ligera', pres: 'Cajita con 250 g', d: 'Ligera y práctica: gratis un esparcidor, solo agrega agua. Contenido 250 g.', img: 'img/prod-ligera-cajita.jpg', ficha: 'docs/ficha-ligera-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas 100% Avena', pres: 'Bolsa con 1 kg', d: 'Avena integral 100%, sin gluten y cero azúcares añadidos. Nutrición sana con el mismo sabor.', img: 'img/prod-avena-bolsa.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas 100% Avena', pres: 'Cajita con 250 g', d: 'Para quien cuida su salud o sus niveles de azúcar, sin sacrificar la textura.', img: 'img/prod-avena-cajita.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Regular', pres: 'Bolsa con 1 kg', d: 'Delicioso sabor y textura, crepas tradicionales. Solo agrega agua: rinde de 16 a 20 crepas de 40 cm.', img: 'img/prod-regular-bolsa.jpg', ficha: 'docs/ficha-regular-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Regular', pres: 'Cajita con 250 g', d: 'La presentación práctica para casa. Rinde de 16 a 17 crepas de 22 cm e incluye gratis un esparcidor de 10 cm. Solo agrega agua.', img: 'img/prod-regular-cajita.jpg', ficha: 'docs/ficha-regular-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Ligera', pres: 'Bolsa con 1 kg', d: 'Crepas ligeras con cero azúcares añadidos, sin sacrificar sabor ni textura. Rinde de 16 a 20 crepas de 40 cm.', img: 'img/prod-ligera-bolsa.jpg', ficha: 'docs/ficha-ligera-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Ligera', pres: 'Cajita con 250 g', d: 'Ligera y práctica: incluye gratis un esparcidor de 10 cm y rinde de 16 a 17 crepas de 22 cm. Solo agrega agua. Contenido 250 g.', img: 'img/prod-ligera-cajita.jpg', ficha: 'docs/ficha-ligera-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas 100% Avena', pres: 'Bolsa con 1 kg', d: 'Avena integral 100%, sin gluten y cero azúcares añadidos. Nutrición sana con el mismo sabor. Rinde de 16 a 20 crepas de 40 cm.', img: 'img/prod-avena-bolsa.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas 100% Avena', pres: 'Cajita con 250 g', d: 'Para quien cuida su salud o sus niveles de azúcar, sin sacrificar la textura. Rinde de 16 a 17 crepas de 22 cm.', img: 'img/prod-avena-cajita.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
     { n: 'Equipamiento Easy Cheff', pres: 'Creperas y módulos', d: 'Creperas a gas y eléctricas con y sin teflón, módulos de crepas, carritos móviles y accesorios.', img: 'img/linea.jpg', ficha: '', precios: { pub: null, p10: null, p25: null } }
   ],
   recetas: [
     { t: 'Cómo preparar tus crepas con Le Lapin Cheff', tipo: 'video', url: 'videos/video-1.mp4' },
     { t: 'Ficha técnica — Harina para crepas de avena integral 100%', tipo: 'pdf', url: 'docs/ficha-avena.pdf' }
+  ],
+  distribuidores: [
+    { nombre: 'CDMX', logo: '' },
+    { nombre: 'Xalapa, Ver.', logo: '' },
+    { nombre: 'Guadalajara', logo: '' },
+    { nombre: 'León, Gto.', logo: '' },
+    { nombre: 'Puerto Vallarta', logo: '' },
+    { nombre: 'Monterrey', logo: '' },
+    { nombre: 'Cancún', logo: '' }
   ]
 };
 function cargarDatos() {
@@ -328,6 +512,13 @@ D.recetas.forEach((r, i) => {
     d.innerHTML = `<div class="rb"><span class="tag">PDF</span><h3>${r.t}</h3><a class="verpdf" href="${r.url}" target="_blank" rel="noopener">Ver / descargar PDF</a></div>`;
   }
   recsEl.appendChild(d);
+});
+const distsEl = document.getElementById('dists');
+(D.distribuidores || []).forEach((d, i) => {
+  const el = document.createElement('div');
+  el.className = 'dist rv ' + (i % 2 ? 'R' : 'L');
+  el.innerHTML = `${d.logo ? `<img src="${d.logo}" alt="${d.nombre}" loading="lazy">` : ''}<span>${d.nombre}</span>`;
+  distsEl.appendChild(el);
 });
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
 document.querySelectorAll('.rv').forEach(el => io.observe(el));

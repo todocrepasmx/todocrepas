@@ -71,6 +71,13 @@ a{color:var(--acc2)}
     </div>
 
     <div class="card">
+      <h2>Distribuidores</h2>
+      <p style="color:var(--mut);font-size:.9rem;margin-bottom:10px">Nombres de tus distribuidores tal como se ven en la página. El logo es opcional: pega el enlace de la imagen si lo tienes.</p>
+      <div id="listaDistribuidores"></div>
+      <button class="btn btn-ghost" id="btnAddDist">+ Agregar distribuidor</button>
+    </div>
+
+    <div class="card">
       <h2>Recetas (PDF o video)</h2>
       <p style="color:var(--mut);font-size:.9rem;margin-bottom:10px">Para una receta nueva: escribe el título, elige PDF o Video y pega el enlace del archivo (por ejemplo de Google Drive o YouTube).</p>
       <div id="listaRecetas"></div>
@@ -87,23 +94,32 @@ a{color:var(--acc2)}
 const CLAVE = 'Crepas2026';
 const KEY = 'todocrepas_datos';
 const API = 'https://todocrepas-api.berroteranc64.workers.dev';
-const IMAGENES = ['img/portada.jpg','img/linea.jpg','img/prod-regular-bolsa.jpg','img/prod-regular-cajita.jpg','img/prod-ligera-bolsa.jpg','img/prod-ligera-cajita.jpg','img/prod-avena-bolsa.jpg','img/prod-avena-cajita.jpg','img/tabla-avena.jpg'];
+const IMAGENES = ['img/portada.jpg','img/linea.jpg','img/prod-regular-bolsa.jpg','img/prod-regular-cajita.jpg','img/prod-ligera-bolsa.jpg','img/prod-ligera-cajita.jpg','img/prod-avena-bolsa.jpg','img/prod-avena-cajita.jpg','img/tabla-avena.jpg','img/escuelas.jpg','img/crepa-servida.jpg'];
 const FICHAS = ['', 'docs/ficha-regular-bolsa.pdf','docs/ficha-regular-cajita.pdf','docs/ficha-ligera-bolsa.pdf','docs/ficha-ligera-cajita.pdf','docs/ficha-avena.pdf'];
 const DEFAULTS = {
   negocio: 'Todocrepas', whatsapp: '522292883706',
   beneficios: ['Solo agrega agua y listo','Siempre la misma calidad','Sin mermas en la preparación','Prepara solo lo que vas a usar','La mezcla dura hasta 5 días en refrigeración','Caducidad de 1 año','Control total: sabes cuántas crepas salen de un kilo','Sin robo hormiga','Precios de medio mayoreo y mayoreo'],
   productos: [
-    { n: 'Harina para Crepas Regular', pres: 'Bolsa con 1 kg', d: 'Delicioso sabor y textura, crepas tradicionales. Solo agrega agua.', img: 'img/prod-regular-bolsa.jpg', ficha: 'docs/ficha-regular-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas Regular', pres: 'Cajita con 250 g', d: 'La presentación práctica para casa. Rinde hasta 14 crepas, solo agrega agua.', img: 'img/prod-regular-cajita.jpg', ficha: 'docs/ficha-regular-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas Ligera', pres: 'Bolsa con 1 kg', d: 'Crepas ligeras con cero azúcares añadidos, sin sacrificar sabor ni textura.', img: 'img/prod-ligera-bolsa.jpg', ficha: 'docs/ficha-ligera-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas Ligera', pres: 'Cajita con 250 g', d: 'Ligera y práctica: gratis un esparcidor, solo agrega agua. Contenido 250 g.', img: 'img/prod-ligera-cajita.jpg', ficha: 'docs/ficha-ligera-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas 100% Avena', pres: 'Bolsa con 1 kg', d: 'Avena integral 100%, sin gluten y cero azúcares añadidos. Nutrición sana con el mismo sabor.', img: 'img/prod-avena-bolsa.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
-    { n: 'Harina para Crepas 100% Avena', pres: 'Cajita con 250 g', d: 'Para quien cuida su salud o sus niveles de azúcar, sin sacrificar la textura.', img: 'img/prod-avena-cajita.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Regular', pres: 'Bolsa con 1 kg', d: 'Delicioso sabor y textura, crepas tradicionales. Solo agrega agua: rinde de 16 a 20 crepas de 40 cm.', img: 'img/prod-regular-bolsa.jpg', ficha: 'docs/ficha-regular-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Regular', pres: 'Cajita con 250 g', d: 'La presentación práctica para casa. Rinde de 16 a 17 crepas de 22 cm e incluye gratis un esparcidor de 10 cm. Solo agrega agua.', img: 'img/prod-regular-cajita.jpg', ficha: 'docs/ficha-regular-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Ligera', pres: 'Bolsa con 1 kg', d: 'Crepas ligeras con cero azúcares añadidos, sin sacrificar sabor ni textura. Rinde de 16 a 20 crepas de 40 cm.', img: 'img/prod-ligera-bolsa.jpg', ficha: 'docs/ficha-ligera-bolsa.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas Ligera', pres: 'Cajita con 250 g', d: 'Ligera y práctica: incluye gratis un esparcidor de 10 cm y rinde de 16 a 17 crepas de 22 cm. Solo agrega agua. Contenido 250 g.', img: 'img/prod-ligera-cajita.jpg', ficha: 'docs/ficha-ligera-cajita.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas 100% Avena', pres: 'Bolsa con 1 kg', d: 'Avena integral 100%, sin gluten y cero azúcares añadidos. Nutrición sana con el mismo sabor. Rinde de 16 a 20 crepas de 40 cm.', img: 'img/prod-avena-bolsa.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
+    { n: 'Harina para Crepas 100% Avena', pres: 'Cajita con 250 g', d: 'Para quien cuida su salud o sus niveles de azúcar, sin sacrificar la textura. Rinde de 16 a 17 crepas de 22 cm.', img: 'img/prod-avena-cajita.jpg', ficha: 'docs/ficha-avena.pdf', precios: { pub: null, p10: null, p25: null } },
     { n: 'Equipamiento Easy Cheff', pres: 'Creperas y módulos', d: 'Creperas a gas y eléctricas con y sin teflón, módulos de crepas, carritos móviles y accesorios.', img: 'img/linea.jpg', ficha: '', precios: { pub: null, p10: null, p25: null } }
   ],
   recetas: [
     { t: 'Cómo preparar tus crepas con Le Lapin Cheff', tipo: 'video', url: 'videos/video-1.mp4' },
     { t: 'Ficha técnica — Harina para crepas de avena integral 100%', tipo: 'pdf', url: 'docs/ficha-avena.pdf' }
+  ],
+  distribuidores: [
+    { nombre: 'CDMX', logo: '' },
+    { nombre: 'Xalapa, Ver.', logo: '' },
+    { nombre: 'Guadalajara', logo: '' },
+    { nombre: 'León, Gto.', logo: '' },
+    { nombre: 'Puerto Vallarta', logo: '' },
+    { nombre: 'Monterrey', logo: '' },
+    { nombre: 'Cancún', logo: '' }
   ]
 };
 let datos = JSON.parse(JSON.stringify(DEFAULTS));
@@ -129,6 +145,14 @@ function pintar() {
       <div><label>Ficha técnica</label>${selFicha(p.ficha)}</div></div>`;
     lp.appendChild(div);
   });
+  const ld = document.getElementById('listaDistribuidores'); ld.innerHTML = '';
+  (datos.distribuidores || []).forEach((d, i) => {
+    const div = document.createElement('div'); div.className = 'item';
+    div.innerHTML = `<div class="cab"><b>Distribuidor ${i + 1}</b><button class="btn-del" data-del-dist="${i}">Quitar</button></div>
+      <div class="row2"><div><label>Nombre</label><input class="f-nombre" value="${esc(d.nombre)}"></div>
+      <div><label>Logo (enlace de la imagen, opcional)</label><input class="f-logo" value="${esc(d.logo)}" placeholder="https://..."></div></div>`;
+    ld.appendChild(div);
+  });
   const lr = document.getElementById('listaRecetas'); lr.innerHTML = '';
   datos.recetas.forEach((r, i) => {
     const div = document.createElement('div'); div.className = 'item';
@@ -143,6 +167,7 @@ function pintar() {
   });
   document.querySelectorAll('[data-del-prod]').forEach(b => b.addEventListener('click', () => { recoger(); datos.productos.splice(+b.dataset.delProd, 1); pintar(); }));
   document.querySelectorAll('[data-del-rec]').forEach(b => b.addEventListener('click', () => { recoger(); datos.recetas.splice(+b.dataset.delRec, 1); pintar(); }));
+  document.querySelectorAll('[data-del-dist]').forEach(b => b.addEventListener('click', () => { recoger(); datos.distribuidores.splice(+b.dataset.delDist, 1); pintar(); }));
 }
 function recoger() {
   datos.negocio = document.getElementById('fNegocio').value.trim();
@@ -156,6 +181,9 @@ function recoger() {
   datos.recetas = [...document.querySelectorAll('#listaRecetas .item')].map(it => ({
     t: it.querySelector('.f-t').value.trim(), tipo: it.querySelector('.f-tipo').value, url: it.querySelector('.f-url').value.trim()
   })).filter(r => r.t && r.url);
+  datos.distribuidores = [...document.querySelectorAll('#listaDistribuidores .item')].map(it => ({
+    nombre: it.querySelector('.f-nombre').value.trim(), logo: it.querySelector('.f-logo').value.trim()
+  })).filter(d => d.nombre);
 }
 async function guardar() {
   recoger();
@@ -167,6 +195,7 @@ async function guardar() {
 document.getElementById('btnGuardar').addEventListener('click', guardar);
 document.getElementById('btnAddProd').addEventListener('click', () => { recoger(); datos.productos.push({ n: 'Nuevo producto', pres: '', d: '', img: IMAGENES[0], ficha: '', precios: { pub: null, p10: null, p25: null } }); pintar(); });
 document.getElementById('btnAddRec').addEventListener('click', () => { recoger(); datos.recetas.push({ t: 'Nueva receta', tipo: 'pdf', url: '' }); pintar(); });
+document.getElementById('btnAddDist').addEventListener('click', () => { recoger(); if (!datos.distribuidores) datos.distribuidores = []; datos.distribuidores.push({ nombre: 'Nuevo distribuidor', logo: '' }); pintar(); });
 document.getElementById('btnReset').addEventListener('click', () => { if (confirm('¿Restablecer la página original?')) { localStorage.removeItem(KEY); datos = JSON.parse(JSON.stringify(DEFAULTS)); pintar(); } });
 function entrar() {
   document.getElementById('login').style.display = 'none';
